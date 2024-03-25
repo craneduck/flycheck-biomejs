@@ -3,7 +3,7 @@
 
 This Flycheck extension is an **EXPERIMENTAL PACKAGE** intended to provide JavaScript/TypeScript syntax checking by [biome](https://biomejs.dev/).
 
-このFlycheck拡張は [biome](https://biomejs.dev/) による JavaScript/TypeScrip t構文チェックを提供するための**実験的パッケージ**です。
+このFlycheck拡張は [biome](https://biomejs.dev/) による JavaScript/TypeScript 構文チェックを提供するための**実験的パッケージ**です。
 
 ## Requirements
 
