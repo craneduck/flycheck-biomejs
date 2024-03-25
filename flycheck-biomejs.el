@@ -24,8 +24,8 @@
 
 ;;; Commentary:
 
-;; This Flycheck extension is EXPERIMENTAL PACKAGE to provide
-;; JavaScript/TypeScript linter by biome.
+;; This Flycheck extension is an EXPERIMENTAL PACKAGE intended to provide
+;; JavaScript/TypeScript syntax checking by biome.
 ;; (see URL `https://biomejs.dev/')
 
 ;;; Code:
