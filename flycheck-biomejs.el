@@ -241,7 +241,8 @@ CONN is a json-rpc connection."
   (let ((src-path (buffer-file-name))
         (conn flycheck-biomejs/connection))
     (flycheck-mode -1) ;; close fileのあとにstart functionが実行されないように
-    (jsonrpc-request conn "biome/close_file" `(:path (:path ,src-path)))
+    (when (jsonrpc-connection-p conn)
+      (jsonrpc-request conn "biome/close_file" `(:path (:path ,src-path))))
     (message "[flycheck-biomejs] close file: %s" src-path)
     (setq flycheck-biomejs/buffer-list (delete src-path flycheck-biomejs/buffer-list))
     (when (length= flycheck-biomejs/buffer-list 0)
