@@ -50,22 +50,40 @@
 (defconst flycheck-biomejs/jsonrpc-client-name "flycheck-biomejs")
 (defconst flycheck-biomejs/jsonrpc-client-version "0.0.1")
 
-(defun flycheck-biomejs/get-version ()
-  "Return biome version."
-  ;; Version: 1.6.0 => '(1 6 0)
+(defun flycheck-biomejs/get-version (command)
+  "Return biome version string.
+
+COMMAND: Full path or command name of the biome command"
+  ;; Version: 1.6.0 => "1.6.0"
   (let ((line (shell-command-to-string
                (mapconcat #'shell-quote-argument
-                          '("biome" "--version") " ")))
+                          `(,command "--version") " ")))
         (re (rx "Version:"
                 (zero-or-more space)
-                (group (one-or-more digit))
-                "."
-                (group (one-or-more digit))
-                "."
-                (group (one-or-more digit)))))
+                (group (one-or-more digit)
+                       "."
+                       (one-or-more digit)
+                       "."
+                       (one-or-more digit)))))
     (when (string-match-p re line)
       (string-match re line)
-      `(,(match-string 1 line) ,(match-string 2 line) ,(match-string 3 line)))))
+      (match-string 1 line))))
+
+(defun flycheck-biomejs/check-version (installed supported)
+  "Compare INSTALLED and SUPPORTED versions and return a boolean value."
+  (let* ((installed (split-string installed "\\."))
+         (supported (split-string supported "\\."))
+         (installed-major (string-to-number (nth 0 installed)))
+         (installed-minor (string-to-number (nth 1 installed)))
+         (installed-patch (string-to-number (nth 2 installed)))
+         (supported-major (string-to-number (nth 0 supported)))
+         (supported-minor (string-to-number (nth 1 supported)))
+         (supported-patch (string-to-number (nth 2 supported))))
+    (cond ((< installed-major supported-major) nil)
+          ((> installed-major supported-major) t)
+          (t (cond ((< installed-minor supported-minor) nil)
+                   ((> installed-minor supported-minor) t)
+                   (t (>= installed-patch supported-patch)))))))
 
 (defun flycheck-biomejs/convert-jsonc-to-json ()
   "Convert JSONC to JSON.
@@ -283,9 +301,10 @@ CHECKER: flycheck-define-generic-checkerの実装を参照."
 
 (defun flycheck-biomejs/verify (_checker)
   "Verify flycheck-biomejs."
-  (let ((command (executable-find "biome"))
-        ;; (version (flycheck-biomejs/get-version))
-        (config-path (and buffer-file-name (flycheck-biomejs/get-config-path))))
+  (let* ((command (executable-find "biome"))
+         (version (when command (flycheck-biomejs/get-version command)))
+         (version-p (when version (flycheck-biomejs/check-version version "1.6.0")))
+         (config-path (and buffer-file-name (flycheck-biomejs/get-config-path))))
     (list
      (flycheck-verification-result-new
       :label "biome command"
@@ -294,7 +313,11 @@ CHECKER: flycheck-define-generic-checkerの実装を参照."
      (flycheck-verification-result-new
       :label "biome config file"
       :message (if config-path (format "Found at %s" config-path) "Not found")
-      :face (if config-path 'success '(bold error))))))
+      :face (if config-path 'success '(bold error)))
+     (flycheck-verification-result-new
+      :label "biome version"
+      :message (if version-p (format "%s" version) (format "%S" version))
+      :face (if version-p 'success '(bold error))))))
 
 (defun flycheck-biomejs/start (checker callback)
   "Experimental function.
