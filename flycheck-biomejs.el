@@ -4,7 +4,7 @@
 
 ;; Author: craneduck <28823828+craneduck@users.noreply.github.com>
 ;; Keywords: tools, convenience, javascript, typescript
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; Package-Requires: ((emacs "29.1") (flycheck "32"))
 
 ;; This file is not part of GNU Emacs.
@@ -86,8 +86,9 @@ COMMAND: Full path or command name of the biome command"
 (defun flycheck-biomejs/remove-unstable-message (output)
   "Remove unstable message from OUTPUT."
   (let ((re (rx "The --json option is unstable/experimental and its output might change between patches/minor releases."
-                (group (one-or-more anything))
-                "lint " (>= 1 "━"))))
+                (group (+? anychar))
+                (or (group "lint " (>= 1 "━") anychar)
+                    string-end))))
     (when (string-match-p re output)
       (string-match re output)
       (match-string 1 output))))
