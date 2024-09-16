@@ -1,10 +1,10 @@
-;;; flycheck-biomejs.el --- Flycheck: Biome JavaScript/TypeScript linter support -*- lexical-binding: t; -*-
+;;; flycheck-biomejs.el --- Flycheck: Biome JavaScript/TypeScript/CSS linter support -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024  craneduck
 
 ;; Author: craneduck <28823828+craneduck@users.noreply.github.com>
 ;; Keywords: tools, convenience, javascript, typescript
-;; Version: 0.1.1
+;; Version: 0.1.2
 ;; Package-Requires: ((emacs "29.1") (flycheck "32"))
 
 ;; This file is not part of GNU Emacs.
@@ -119,7 +119,7 @@ See `flycheck-define-checker' for the three arguments OUTPUT, CHECKER, and BUFFE
   (and buffer-file-name
        (let* ((command (executable-find "biome"))
               (version (when command (flycheck-biomejs/get-version command)))
-              (version-p (when version (flycheck-biomejs/check-version version "1.7.0")))
+              (version-p (when version (flycheck-biomejs/check-version version "1.9.0")))
               (config-path (flycheck-biomejs/get-config-path)))
          (and version-p config-path))))
 
@@ -127,7 +127,7 @@ See `flycheck-define-checker' for the three arguments OUTPUT, CHECKER, and BUFFE
   "Verify flycheck-biomejs."
   (let* ((command (executable-find "biome"))
          (version (when command (flycheck-biomejs/get-version command)))
-         (version-p (when version (flycheck-biomejs/check-version version "1.7.0")))
+         (version-p (when version (flycheck-biomejs/check-version version "1.9.0")))
          (config-path (and buffer-file-name (flycheck-biomejs/get-config-path))))
     (list
      (flycheck-verification-result-new
@@ -151,7 +151,7 @@ See URL `https://biomejs.dev'."
   :enabled flycheck-biomejs/enabled
   :error-parser flycheck-biomejs/parse-error
   :working-directory flycheck-biomejs/find-working-directory
-  :modes (js-mode js2-mode typescript-mode typescript-ts-mode typescript-tsx-mode)
+  :modes (js-mode js2-mode typescript-mode typescript-ts-mode typescript-tsx-mode css-mode)
   :verify flycheck-biomejs/verify)
 
 (add-to-list 'flycheck-checkers 'javascript-biome)

@@ -1,13 +1,13 @@
 
 # flycheck-biomejs.el
 
-This Flycheck extension is an **EXPERIMENTAL PACKAGE** intended to provide JavaScript/TypeScript syntax checking by [Biome](https://biomejs.dev/).
+This Flycheck extension is an **EXPERIMENTAL PACKAGE** intended to provide JavaScript/TypeScript/CSS syntax checking by [Biome](https://biomejs.dev/).
 
-このFlycheck拡張は [Biome](https://biomejs.dev/) による JavaScript/TypeScript 構文チェックを提供するための**実験的パッケージ**です。
+このFlycheck拡張は [Biome](https://biomejs.dev/) による JavaScript/TypeScript/CSS 構文チェックを提供するための**実験的パッケージ**です。
 
 ## Requirements
 
-* Biome 1.7.0 or later
+* Biome 1.9.0 or later
 
 Please follow the installation instructions in [Biome's Getting Started](https://biomejs.dev/guides/getting-started/) guide.
 
