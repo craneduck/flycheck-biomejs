@@ -151,7 +151,7 @@ See URL `https://biomejs.dev'."
   :enabled flycheck-biomejs/enabled
   :error-parser flycheck-biomejs/parse-error
   :working-directory flycheck-biomejs/find-working-directory
-  :modes (js-mode js2-mode typescript-mode typescript-ts-mode typescript-tsx-mode css-mode)
+  :modes (js-mode js2-mode js-ts-mode typescript-mode typescript-ts-mode typescript-tsx-mode css-mode)
   :verify flycheck-biomejs/verify)
 
 (add-to-list 'flycheck-checkers 'javascript-biome)
