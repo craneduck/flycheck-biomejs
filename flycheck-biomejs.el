@@ -84,6 +84,7 @@ COMMAND: Full path or command name of the biome command"
 (defun flycheck-biomejs/find-working-directory (_cehcker)
   "Return working directory path."
   (when buffer-file-name (or (locate-dominating-file buffer-file-name "biome.json")
+                             (locate-dominating-file buffer-file-name "biome.jsonc")
                              (locate-dominating-file buffer-file-name "node_modules"))))
 
 (defun flycheck-biomejs/remove-unstable-message (output)
