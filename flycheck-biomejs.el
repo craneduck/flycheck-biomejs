@@ -74,9 +74,12 @@ COMMAND: Full path or command name of the biome command"
                    (t (>= installed-patch supported-patch)))))))
 
 (defun flycheck-biomejs/get-config-path ()
-  "Return biome.json path."
-  (when-let ((path (locate-dominating-file buffer-file-name "biome.json")))
-    (expand-file-name "biome.json" path)))
+  "Return biome.json or biome.jsonc path."
+  (or (when-let ((path (locate-dominating-file buffer-file-name "biome.jsonc")))
+        (expand-file-name "biome.jsonc" path))
+      (when-let ((path (locate-dominating-file buffer-file-name "biome.json")))
+        (expand-file-name "biome.json" path))))
+
 
 (defun flycheck-biomejs/find-working-directory (_cehcker)
   "Return working directory path."
