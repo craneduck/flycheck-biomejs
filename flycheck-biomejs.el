@@ -104,15 +104,16 @@ See `flycheck-define-checker' for the three arguments OUTPUT, CHECKER, and BUFFE
   (let ((parsed (flycheck-parse-json (flycheck-biomejs/remove-unstable-message output))))
     (mapcar (lambda (diag)
               (let-alist diag
-                (flycheck-error-new-at-pos
-                 (1+ (car .location.span))
+                (flycheck-error-new-at
+                 .location.start.line
+                 .location.start.column
                  (pcase .severity
                    ((or "error" "fatal") 'error)
                    ((or "information" "hint") 'info)
                    ((or "warning" _) 'warning))
-                 (format "%s(%s)" .description .category)
-                 :end-pos (1+ (cadr .location.span))
-                 ;;:id (cddr (split-string .category "/"))
+                 (format "%s(%s)" .message .category)
+                 :end-line .location.end.line
+                 :end-column .location.end.column
                  :checker checker
                  :buffer buffer
                  :filename (buffer-file-name buffer))))
