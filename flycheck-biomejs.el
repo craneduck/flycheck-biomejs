@@ -124,7 +124,7 @@ See `flycheck-define-checker' for the three arguments OUTPUT, CHECKER, and BUFFE
   (and buffer-file-name
        (let* ((command (executable-find "biome"))
               (version (when command (flycheck-biomejs/get-version command)))
-              (version-p (when version (flycheck-biomejs/check-version version "1.9.0")))
+              (version-p (when version (flycheck-biomejs/check-version version "2.4.0")))
               (config-path (flycheck-biomejs/get-config-path)))
          (and version-p config-path))))
 
@@ -132,7 +132,7 @@ See `flycheck-define-checker' for the three arguments OUTPUT, CHECKER, and BUFFE
   "Verify flycheck-biomejs."
   (let* ((command (executable-find "biome"))
          (version (when command (flycheck-biomejs/get-version command)))
-         (version-p (when version (flycheck-biomejs/check-version version "1.9.0")))
+         (version-p (when version (flycheck-biomejs/check-version version "2.4.0")))
          (config-path (and buffer-file-name (flycheck-biomejs/get-config-path))))
     (list
      (flycheck-verification-result-new

@@ -7,7 +7,7 @@ This Flycheck extension is an **EXPERIMENTAL PACKAGE** intended to provide JavaS
 
 ## Requirements
 
-* Biome 1.9.0 or later
+* Biome 2.4.0 or later
 
 Please follow the installation instructions in [Biome's Getting Started](https://biomejs.dev/guides/getting-started/) guide.
 
