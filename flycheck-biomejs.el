@@ -1,10 +1,10 @@
 ;;; flycheck-biomejs.el --- Flycheck: Biome JavaScript/TypeScript/CSS linter support -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024  craneduck
+;; Copyright (C) 2024-2026  craneduck
 
 ;; Author: craneduck <28823828+craneduck@users.noreply.github.com>
 ;; Keywords: tools, convenience, javascript, typescript
-;; Version: 0.1.2
+;; Version: 0.1.3
 ;; Package-Requires: ((emacs "29.1") (flycheck "32"))
 
 ;; This file is not part of GNU Emacs.
