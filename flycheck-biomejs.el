@@ -89,7 +89,8 @@ COMMAND: Full path or command name of the biome command"
 
 (defun flycheck-biomejs/remove-unstable-message (output)
   "Remove unstable message from OUTPUT."
-  (let ((re (rx "The --json option is unstable/experimental and its output might change between patches/minor releases."
+  (let ((re (rx (or "The --json option is unstable/experimental and its output might change between patches/minor releases."
+                    "The `json` and `json-pretty` reporters are experimental and may change in patch releases.")
                 (group (+? anychar))
                 (or (group "lint " (>= 1 "━") anychar)
                     string-end))))
